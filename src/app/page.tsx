@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="">
-      <header className="mx-6 my-12 md:mx-12 md:my-20 lg:mx-auto lg:w-1/2">
+      <header className="mx-6 mt-12 mb-24 md:mx-12 md:mt-20 md:mb-36 lg:mx-auto lg:w-1/2">
         <h1 className={`text-5xl font-bold text-slate-200 ${besley.className}`}>
           Ryan Price
         </h1>
@@ -21,7 +21,6 @@ export default function Home() {
             <a href="https://www.linkedin.com/in/rsprice/">LinkedIn</a>
           </li>
         </ul>
-        <Image src="/pfp.jpg" alt="Picture of me" width={500} height={500} />
       </header>
 
       <main className="mx-6 md:mx-12 lg:mx-auto lg:w-1/2">
