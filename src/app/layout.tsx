@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`mx-auto min-h-screen bg-gradient-to-tl from-slate-950 to-sky-950 ${workSans.className}`}>
+      <body className={`mx-auto min-h-screen bg-gradient-to-tl from-slate-950 to-sky-950 ${workSans.className} mb-24`}>
         {children}
       </body>
     </html>

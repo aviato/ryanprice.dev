@@ -17,7 +17,7 @@ const ExpInfo: React.FC<ExpInfoProps> = ({
   technologies,
 }) => {
   return (
-    <article className="mt-4">
+    <article className="mt-8">
       <h3 className="text-xl font-bold">
         {jobTitle} @ {companyName}
       </h3>

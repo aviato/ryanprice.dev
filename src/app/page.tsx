@@ -1,6 +1,6 @@
 import { besley } from "./fonts";
 import ExpInfo from "../lib/ExpInfo";
-import { abort } from "process";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -13,9 +13,15 @@ export default function Home() {
         <p className="mt-4 text-slate-300">
           I bring pixel-perfect and responsive designs to life 🌱
         </p>
-        <a href="https://github.com/aviato">Github</a>
-        <br />
-        <a href="https://www.linkedin.com/in/rsprice/">LinkedIn</a>
+        <ul aria-label="Social Links" className="flex mt-4">
+          <li className="mr-2">
+            <a href="https://github.com/aviato">Github</a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/rsprice/">LinkedIn</a>
+          </li>
+        </ul>
+        <Image src="/pfp.jpg" alt="Picture of me" width={500} height={500} />
       </header>
 
       <main className="mx-6 md:mx-12 lg:mx-auto lg:w-1/2">
@@ -128,6 +134,7 @@ export default function Home() {
                   "MapboxGL",
                   "Node.js",
                   "Golang",
+                  "MaterialUI",
                 ]}
               >
                 As a Front End Engineer at Billups from November 2018 to January
@@ -195,6 +202,7 @@ export default function Home() {
                   "Karma",
                   "Chai",
                   "Webpack",
+                  "Bootstrap",
                 ]}
               >
                 I collaborated within a small team of software engineers to
@@ -233,6 +241,7 @@ export default function Home() {
                   "Cloudflare Workers",
                   "PostgresQL",
                   "OpenAI API",
+                  "Figma",
                 ]}
               >
                 I had been itching to work on a project using SvelteKit, and do
