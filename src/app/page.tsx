@@ -1,6 +1,5 @@
 import { besley } from "./fonts";
-import ExpInfo from "../lib/ExpInfo";
-import Image from "next/image";
+import ExpInfo from "../components/ExpInfo";
 
 export default function Home() {
   return (
