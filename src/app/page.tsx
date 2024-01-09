@@ -35,7 +35,7 @@ export default function Home() {
           </p>
           <br />
           <p>
-            When I'm not at my desk solving problems, you can find me out in
+            When I&apos;m not at my desk solving problems, you can find me out in
             nature camping and playing music.
           </p>
         </section>
@@ -185,7 +185,7 @@ export default function Home() {
                 browsers, including Chrome, Firefox, and IE. Additionally, I
                 actively participated in cross-platform mobile application
                 development, leveraging the Ionic framework to enhance the
-                application's accessibility and reach.
+                application&apos;s accessibility and reach.
               </ExpInfo>
             </li>
             <li>
@@ -211,7 +211,7 @@ export default function Home() {
                 automate tests across multiple browsers. This strategic
                 implementation not only increased test coverage but also
                 generated comprehensive coverage reports to ensure the
-                application's reliability.
+                application&apos;s reliability.
                 <br />
                 <br />
                 In the realm of front-end development, I leveraged React, Redux,
@@ -244,7 +244,7 @@ export default function Home() {
                 ]}
               >
                 I had been itching to work on a project using SvelteKit, and do
-                something with OpenAI's API, so on this project I did both! The
+                something with OpenAI&apos;s API, so on this project I did both! The
                 project is very simple: take a prompt from the user and generate
                 a short science fiction story with images from DALL·E.
               </ExpInfo>
