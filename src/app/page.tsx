@@ -1,5 +1,6 @@
 import { besley } from "./fonts";
 import ExpInfo from "../lib/ExpInfo";
+import { abort } from "process";
 
 export default function Home() {
   return (
@@ -54,7 +55,27 @@ export default function Home() {
                   "Ecommerce",
                 ]}
               >
-                Wrote lots of code; React, MapboxGL, Webpack, etc.
+                During my tenure at Savage X Fenty, I played a pivotal role in
+                the success of a high-traffic Ecommerce web application,
+                contributing to the development of Next.js, React, and Redux
+                code. In close collaboration with the product team, I crafted
+                robust solutions for feature tracking, analytics, A/B Testing,
+                localization, and CMS integration. This comprehensive approach
+                significantly enhanced the overall user experience.
+                Additionally, I consistently delivered critical features and bug
+                fixes, ensuring the continuous improvement and seamless
+                functionality of the platform.
+                <br />
+                <br />
+                As a seasoned leader, I spearheaded teams of 5 or more
+                engineers, providing guidance in the architecture and planning
+                of key engineering efforts crucial to business-critical product
+                launches. My impact extended beyond Savage X Fenty, as I proudly
+                served as a member of the React Oversight and TypeScript
+                committees, actively contributing to the evolution of these
+                technologies. In tandem, I took on a mentoring role, fostering
+                the growth of junior developers through pair programming
+                sessions and rigorous code reviews.
               </ExpInfo>
             </li>
             <li>
@@ -73,7 +94,24 @@ export default function Home() {
                   "Golang",
                 ]}
               >
-                Wrote lots of code; React, MapboxGL, Webpack, etc.
+                As a Front End Engineering Team Lead at Billups, I led a small
+                and dynamic team, overseeing the planning, development, and
+                maintenance of multiple applications. Notably, I was promoted to
+                this position during my tenure at the company, showcasing the
+                recognition of my contributions and leadership skills. I
+                excelled in translating product business requirements into
+                technical user stories, fostering effective communication within
+                the team and ensuring alignment with overarching objectives.
+                <br />
+                <br />
+                In my role, I prioritized mentorship, providing valuable
+                guidance to the team and creating comprehensive documentation
+                for best practices and company processes. Collaboration was a
+                cornerstone of my approach, and I actively worked with the back
+                end team to design APIs, fostering parity between services and
+                front-end applications. This collaborative effort contributed
+                significantly to the overall efficiency and cohesion of our
+                development endeavors.
               </ExpInfo>
             </li>
             <li>
@@ -92,7 +130,24 @@ export default function Home() {
                   "Golang",
                 ]}
               >
-                Wrote lots of code; React, MapboxGL, Webpack, etc.
+                As a Front End Engineer at Billups from November 2018 to January
+                2021, I played a crucial role in advancing the technological
+                landscape of a company committed to reshaping its industry
+                through cutting-edge technology and automation. My contributions
+                extended to a significant overhaul of CI/CD processes for our
+                team, where I established build and deploy steps utilizing AWS,
+                Kubernetes, and Drone, optimizing our development workflow.
+                <br />
+                <br />
+                Within this innovative environment, I actively contributed to
+                the internal component library, collaborating closely with the
+                UX team to design reusable solutions. My proficiency in
+                TypeScript, React, Redux, and RXjs was instrumental in
+                architecting and implementing product requests as new features,
+                further elevating the capabilities of our applications. This
+                period of my career was marked by a commitment to pushing
+                boundaries and leveraging the latest technologies to drive
+                impactful changes within the company.
               </ExpInfo>
             </li>
             <li>
@@ -109,7 +164,22 @@ export default function Home() {
                   "Node.js",
                 ]}
               >
-                Wrote lots of code; React, MapboxGL, Webpack, etc.
+                I made significant contributions to both the evolution of
+                existing products and the creation of new solutions for an
+                application serving over one hundred thousand small businesses.
+                My focus encompassed writing reusable and production-ready UI
+                components using AngularJS within a large-scale application.
+                <br />
+                <br />
+                Operating in a dynamic and agile environment, I collaborated
+                closely with cross-functional teams, including UX, product, and
+                back end, to meet demanding deadlines. A key aspect of my work
+                involved translating design mocks into reality, ensuring
+                pixel-perfect and responsive implementations across multiple
+                browsers, including Chrome, Firefox, and IE. Additionally, I
+                actively participated in cross-platform mobile application
+                development, leveraging the Ionic framework to enhance the
+                application's accessibility and reach.
               </ExpInfo>
             </li>
             <li>
@@ -122,17 +192,34 @@ export default function Home() {
                   "Redux",
                   "MapboxGL",
                   "Mocha",
+                  "Karma",
+                  "Chai",
                   "Webpack",
                 ]}
               >
-                Wrote lots of code; React, MapboxGL, Webpack, etc.
+                I collaborated within a small team of software engineers to
+                develop an internal web application tailored for the media
+                industry. My responsibilities included the creation of a robust
+                test harness, utilizing Mocha, Karma, Chai, and Webpack to
+                automate tests across multiple browsers. This strategic
+                implementation not only increased test coverage but also
+                generated comprehensive coverage reports to ensure the
+                application's reliability.
+                <br />
+                <br />
+                In the realm of front-end development, I leveraged React, Redux,
+                and ES6 to craft reusable UI components for a single-page web
+                application. This approach not only streamlined the development
+                process but also contributed to the overall efficiency and
+                maintainability of the internal web application designed to meet
+                the specific needs of the media industry.
               </ExpInfo>
             </li>
           </ol>
         </section>
 
         <section className="mt-8">
-          <h2>Projects:</h2>
+          <h2 className="text-xl">Projects:</h2>
           <ul>
             <li>
               <ExpInfo
@@ -148,7 +235,10 @@ export default function Home() {
                   "OpenAI API",
                 ]}
               >
-                Wrote lots of code; React, MapboxGL, Webpack, etc.
+                I had been itching to work on a project using SvelteKit, and do
+                something with OpenAI's API, so on this project I did both! The
+                project is very simple: take a prompt from the user and generate
+                a short science fiction story with images from DALL·E.
               </ExpInfo>
             </li>
           </ul>
