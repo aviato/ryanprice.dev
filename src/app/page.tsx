@@ -14,10 +14,10 @@ export default function Home() {
         </p>
         <ul aria-label="Social Links" className="flex mt-4">
           <li className="mr-2">
-            <a href="https://github.com/aviato">Github</a>
+            <a href="https://github.com/aviato" target="_blank">Github</a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/in/rsprice/">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/rsprice/" target="_blank">LinkedIn</a>
           </li>
         </ul>
       </header>
@@ -58,6 +58,7 @@ export default function Home() {
                   "Jenkins",
                   "Ecommerce",
                 ]}
+                websiteUrl="https://www.savagex.com/"
               >
                 During my tenure at Savage X Fenty, I played a pivotal role in
                 the success of a high-traffic Ecommerce web application,
@@ -97,6 +98,7 @@ export default function Home() {
                   "Node.js",
                   "Golang",
                 ]}
+                websiteUrl="https://www.billups.com/"
               >
                 As a Front End Engineering Team Lead at Billups, I led a small
                 and dynamic team, overseeing the planning, development, and
@@ -134,6 +136,7 @@ export default function Home() {
                   "Golang",
                   "MaterialUI",
                 ]}
+                websiteUrl="https://www.billups.com/"
               >
                 As a Front End Engineer at Billups from November 2018 to January
                 2021, I played a crucial role in advancing the technological
@@ -168,6 +171,7 @@ export default function Home() {
                   "Jasmine",
                   "Node.js",
                 ]}
+                websiteUrl="https://www.womply.com/"
               >
                 I made significant contributions to both the evolution of
                 existing products and the creation of new solutions for an
@@ -202,6 +206,7 @@ export default function Home() {
                   "Webpack",
                   "Bootstrap",
                 ]}
+                websiteUrl="https://www.billups.com/"
               >
                 I collaborated within a small team of software engineers to
                 develop an internal web application tailored for the media
@@ -240,7 +245,9 @@ export default function Home() {
                   "PostgresQL",
                   "OpenAI API",
                   "Figma",
+                  "Docker",
                 ]}
+                websiteUrl="https://whatifmachine.ai"
               >
                 I had been itching to work on a project using SvelteKit, and do
                 something with OpenAI&apos;s API, so on this project I did both! The
