@@ -95,8 +95,15 @@ main {
  * border, letting the sides run off the top/bottom edge. */
 .frame {
   position: relative;
-  width: var(--fw, 64vw);
-  margin-left: var(--fx, 12vw);
+  /* Before the engine measures the grid and sets --fx/--fw (one client tick
+   * after mount), fall back to a centered column so the first paint already
+   * sits where relayout will put it — otherwise the frame slides left→center
+   * on hydration. The fallback width tracks the hero (first section on screen);
+   * `margin: auto` centers it, and once --fx is set the explicit left margin
+   * fixes the exact grid-snapped position (--fx and --fw are set together). */
+  width: var(--fw, 60vw);
+  margin-left: var(--fx, auto);
+  margin-right: auto;
   display: flex;
   flex-direction: column;
   padding: clamp(16px, 2.4vh, 36px) clamp(22px, 3vw, 52px);
@@ -583,6 +590,9 @@ a {
   }
   .frame {
     padding: clamp(14px, 4.5vw, 26px);
+    /* Phones render a near-full-width column (relayout uses ~0.82); match it in
+     * the pre-relayout fallback so the first paint doesn't grow/recenter. */
+    width: var(--fw, 86vw);
   }
   .hero h1 {
     font-size: clamp(34px, 11vw, 56px);
