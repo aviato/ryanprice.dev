@@ -1,10 +1,16 @@
-import type { Metadata } from 'next'
-import { workSans } from './fonts'
+import type { Metadata, Viewport } from 'next'
+import { bricolage, spaceGrotesk, jetbrainsMono } from './fonts'
 import './globals.css'
+import '../styles/site.css'
 
 export const metadata: Metadata = {
-  title: 'ryanprice.dev',
-  description: 'The personal portfolio of Ryan Price',
+  title: 'Ryan Price — Sr. Frontend Software Engineer',
+  description:
+    'Ryan Price — Sr. Frontend Software Engineer. Ten years building conversion-critical, high-traffic web experiences in React, Next.js & TypeScript.',
+}
+
+export const viewport: Viewport = {
+  themeColor: '#08182b',
 }
 
 export default function RootLayout({
@@ -12,11 +18,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const fontVars = `${bricolage.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`
   return (
-    <html lang="en">
-      <body className={`mx-auto min-h-screen bg-gradient-to-tl from-slate-950 to-sky-950 ${workSans.className} mb-24 text-slate-300`}>
-        {children}
-      </body>
+    <html
+      lang="en"
+      data-theme="blueprint"
+      data-frame-border="impact"
+      className={fontVars}
+    >
+      <body>{children}</body>
     </html>
   )
 }

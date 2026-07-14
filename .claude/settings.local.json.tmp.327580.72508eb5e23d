@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(curl -s -o /tmp/claude-1000/-home-aviato-Repos-ryanprice-dev/9a2ab24f-fdf0-483b-b158-4b94c2b21464/scratchpad/home.html -w \"%{http_code}\" http://localhost:3001/)",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(node -e \"console.log\\(process.version\\)\")",
+      "Bash(node *)",
+      "Bash(kill 317424)",
+      "Bash(pkill -f \"chrome-profile\")",
+      "Bash(pkill -f \"remote-debugging-port=9222\")",
+      "Bash(curl -s -o /dev/null -w \"dev-server:%{http_code}\\\\n\" http://localhost:3001/)",
+      "Bash(curl -s -o /dev/null http://localhost:9222/json/version)",
+      "Bash(echo \"tsc exit: $?\")",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(echo \"=== commit exit: $? ===\")"
+    ]
+  }
+}
