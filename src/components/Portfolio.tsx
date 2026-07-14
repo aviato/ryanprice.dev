@@ -46,6 +46,15 @@ export default function Portfolio() {
     return snapRectToFrame(g, r);
   }, []);
 
+  // The section's on-screen band (viewport px) — the engine clips that section's
+  // lines to it so they never paint over a neighbour sharing the viewport.
+  const measureSectionBand = useCallback((id: string) => {
+    const el = sectionEls.current[id];
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return { top: r.top, bottom: r.bottom };
+  }, []);
+
   // Recompute grid geometry, position the DOM frames (width + horizontal
   // offset only — height/vertical is natural flow), then re-settle the engine.
   const relayout = useCallback(() => {
@@ -99,6 +108,7 @@ export default function Portfolio() {
 
     const engine = new GridEngine(canvas, {
       frameProvider: measureFrame,
+      sectionBand: measureSectionBand,
     });
     engineRef.current = engine;
     engine.setParams(paramsRef.current);
@@ -167,7 +177,7 @@ export default function Portfolio() {
       window.removeEventListener("keydown", onKey);
       engineRef.current = null;
     };
-  }, [relayout, measureFrame, debug]);
+  }, [relayout, measureFrame, measureSectionBand, debug]);
 
   const goTo = (id: string) =>
     sectionEls.current[id]?.scrollIntoView({ behavior: "smooth" });

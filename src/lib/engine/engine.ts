@@ -59,6 +59,13 @@ export interface EngineHooks {
    * so lines always route around it. Null if the section can't be measured.
    */
   frameProvider: (id: string) => FrameRect | null;
+  /**
+   * The section's full on-screen band in viewport pixels (its getBoundingClientRect
+   * top/bottom). The active section's lines are clipped to this so, when two
+   * sections share the viewport (free-scroll in-between state), a section's lines
+   * can never paint over its neighbour's content. Null if unmeasurable.
+   */
+  sectionBand: (id: string) => { top: number; bottom: number } | null;
 }
 
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
@@ -563,9 +570,20 @@ export default class GridEngine {
     ctx.clearRect(0, 0, g.w, g.h);
     this.drawDots();
     if (this.params.frameBorder === "always") this.drawFrames();
+    // Everything from here belongs to the active section — clip it to that
+    // section's on-screen band so its lines (and their glow) stay within its own
+    // content region and never spill onto a neighbour sharing the viewport.
+    const band = this.activeId ? this.hooks.sectionBand(this.activeId) : null;
+    ctx.save();
+    if (band && band.bottom > band.top) {
+      ctx.beginPath();
+      ctx.rect(0, band.top, g.w, band.bottom - band.top);
+      ctx.clip();
+    }
     for (const l of this.lines) this.drawLine(l);
     for (const s of this.scripted) this.drawScripted(s);
     this.drawFx();
+    ctx.restore();
   }
 
   /** Bake the whole dot lattice into an offscreen canvas at device resolution.
