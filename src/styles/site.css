@@ -584,6 +584,13 @@ a {
 /* --- mobile -------------------------------------------------------------- */
 
 @media (max-width: 720px) {
+  /* Free scroll on phones. Sections are taller than the viewport here (more text
+   * wrapping in the narrow column), so snapping every section start fought the
+   * user — small scrolls near a section top kept getting yanked back, and the
+   * URL bar's dynamic viewport made it worse. Desktop keeps proximity snap. */
+  html {
+    scroll-snap-type: none;
+  }
   .section {
     min-height: 100dvh;
     /* Smaller routing band on phones (denser grid, tighter viewport). */

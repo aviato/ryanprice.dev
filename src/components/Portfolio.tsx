@@ -106,6 +106,12 @@ export default function Portfolio() {
     relayout(); // sets geom + first settle
 
     // Rail highlight + current section id (used by scroll-settle below).
+    // The root is collapsed to a thin band at the viewport's vertical center
+    // (rootMargin -50%/-50% + a small slice), so the active section is simply
+    // whichever one is crossing the centerline. A visible-ratio threshold does
+    // NOT work here: sections taller than ~1.8x the viewport (e.g. Experience on
+    // a narrow phone) can never reach it, so they'd never become active and the
+    // engine would trace a stale, mismeasured frame across their content.
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
@@ -115,7 +121,7 @@ export default function Portfolio() {
           }
         }
       },
-      { threshold: 0.55 },
+      { rootMargin: "-48% 0px -48% 0px", threshold: 0 },
     );
     for (const s of SECTIONS) {
       const el = sectionEls.current[s.id];
