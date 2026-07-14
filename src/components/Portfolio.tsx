@@ -65,8 +65,13 @@ export default function Portfolio() {
       const el = frameEls.current[s.id];
       if (!el) continue;
       // Mobile: one near-full-width column for every section (handoff §3).
+      // Width is grid-snapped (whole columns); the frame is then centered in the
+      // viewport rather than pinned to a grid node — snapping the *column* can't
+      // divide the viewport symmetrically (an off-by-half-cell shift, ~12px and
+      // very visible on phones). The engine re-measures this real rect and snaps
+      // it outward for line routing, so centering doesn't affect the lines.
       const box = frameBox(geom, mobile ? 0.82 : s.frameWidth);
-      el.style.setProperty("--fx", `${box.x}px`);
+      el.style.setProperty("--fx", `${Math.round((geom.w - box.w) / 2)}px`);
       el.style.setProperty("--fw", `${box.w}px`);
     }
     engine.setGeom(geom);

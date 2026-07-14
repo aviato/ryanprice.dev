@@ -88,19 +88,20 @@ main {
 }
 
 /* The content frame sits in normal flow (so tall sections grow and the page
- * scrolls), horizontally offset + sized to a grid-snapped column band via the
- * --fx/--fw custom props; the engine draws its frame at the same rect. A frame
- * taller than the viewport renders at full height (no inner scroll) and the
- * page scrolls it — the engine then traces only the on-screen portion of its
- * border, letting the sides run off the top/bottom edge. */
+ * scrolls), sized to a grid-snapped column width (--fw) and centered in the
+ * viewport (--fx = centered left offset). The engine re-measures this real rect
+ * and snaps it outward to enclosing grid nodes for line routing, so centering
+ * the content is independent of where the lines run. A frame taller than the
+ * viewport renders at full height (no inner scroll) and the page scrolls it —
+ * the engine then traces only the on-screen portion of its border, letting the
+ * sides run off the top/bottom edge. */
 .frame {
   position: relative;
-  /* Before the engine measures the grid and sets --fx/--fw (one client tick
-   * after mount), fall back to a centered column so the first paint already
-   * sits where relayout will put it — otherwise the frame slides left→center
-   * on hydration. The fallback width tracks the hero (first section on screen);
-   * `margin: auto` centers it, and once --fx is set the explicit left margin
-   * fixes the exact grid-snapped position (--fx and --fw are set together). */
+  /* Before the engine sets --fx/--fw (one client tick after mount), fall back
+   * to a centered column so the first paint already sits where relayout will
+   * put it. --fx resolves to the same centered offset margin:auto would give,
+   * so first paint and relayout agree — no hydration slide. (--fx and --fw are
+   * always set together.) */
   width: var(--fw, 60vw);
   margin-left: var(--fx, auto);
   margin-right: auto;

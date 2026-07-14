@@ -92,6 +92,11 @@ export default class GridEngine {
   private last = 0;
   private reduced = false;
   private dpr = 1;
+  private mobile = false;
+
+  // The dot lattice never moves between geom changes, so it's baked once to an
+  // offscreen canvas and blitted each frame instead of re-stroking every arc.
+  private dotCanvas: HTMLCanvasElement | null = null;
 
   constructor(canvas: HTMLCanvasElement, hooks: EngineHooks) {
     this.canvas = canvas;
@@ -105,9 +110,12 @@ export default class GridEngine {
   setParams(p: Params): void {
     const linesChanged = p.activeLines !== this.params.activeLines;
     const seqChanged = p.sequence !== this.params.sequence;
+    const themeChanged = p.theme !== this.params.theme;
     this.pal = THEMES[p.theme];
     this.params = p;
     this.canvas.style.filter = p.backgroundBlur ? `blur(${p.backgroundBlur}px)` : "";
+    // The baked dot lattice carries the theme's dot color; recolor it on swap.
+    if (themeChanged && this.geom) this.buildDots();
     if (this.reduced) {
       this.renderStatic();
     } else if (seqChanged && this.geom) {
@@ -122,7 +130,9 @@ export default class GridEngine {
   /** Grid geometry changed (mount / resize / spacing). Re-measure on settle. */
   setGeom(geom: GridGeom): void {
     this.geom = geom;
+    this.mobile = geom.w < 720;
     this.resizeCanvas(geom.w, geom.h);
+    this.buildDots(); // rebake the lattice for the new size / dpr
     this.clearLines();
     this.scripted = [];
     if (this.reduced) {
@@ -469,7 +479,7 @@ export default class GridEngine {
     ctx.lineJoin = "round";
     ctx.strokeStyle = this.pal.line;
     ctx.shadowColor = this.pal.accent;
-    ctx.shadowBlur = 10 * this.params.lineGlow;
+    ctx.shadowBlur = this.glow(10 * this.params.lineGlow);
     ctx.beginPath();
     ctx.moveTo(pts[0].x, pts[0].y);
     for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
@@ -481,7 +491,7 @@ export default class GridEngine {
       const heat = this.params.cometHeat;
       ctx.fillStyle = this.mix(this.pal.line, "#ffffff", heat * 0.7);
       ctx.shadowColor = this.pal.accent;
-      ctx.shadowBlur = 14 * this.params.lineGlow;
+      ctx.shadowBlur = this.glow(14 * this.params.lineGlow);
       ctx.beginPath();
       ctx.arc(h.x, h.y, 3 + heat * 1.5, 0, Math.PI * 2);
       ctx.fill();
@@ -558,22 +568,51 @@ export default class GridEngine {
     this.drawFx();
   }
 
-  private drawDots(): void {
-    const ctx = this.ctx;
-    const g = this.geom!;
+  /** Bake the whole dot lattice into an offscreen canvas at device resolution.
+   * Rebuilt only on geom / dpr / theme change — never per frame. */
+  private buildDots(): void {
+    const g = this.geom;
+    if (!g) return;
+    const cv = this.dotCanvas ?? (this.dotCanvas = document.createElement("canvas"));
+    cv.width = Math.round(g.w * this.dpr);
+    cv.height = Math.round(g.h * this.dpr);
+    const c = cv.getContext("2d")!;
+    c.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    c.clearRect(0, 0, g.w, g.h);
     const rad = Math.max(1, g.sp / 34);
-    ctx.fillStyle = this.pal.dot;
-    ctx.globalAlpha = this.params.gridVisibility;
-    for (let c = 0; c < g.cols; c++) {
+    c.fillStyle = this.pal.dot;
+    // One path + one fill for the entire lattice (moveTo breaks the subpaths so
+    // the arcs don't chain into connecting lines).
+    c.beginPath();
+    for (let col = 0; col < g.cols; col++) {
+      const x = g.offX + col * g.sp;
       for (let r = 0; r < g.rows; r++) {
-        const x = g.offX + c * g.sp;
         const y = g.offY + r * g.sp;
-        ctx.beginPath();
-        ctx.arc(x, y, rad, 0, Math.PI * 2);
-        ctx.fill();
+        c.moveTo(x + rad, y);
+        c.arc(x, y, rad, 0, Math.PI * 2);
       }
     }
-    ctx.globalAlpha = 1;
+    c.fill();
+  }
+
+  private drawDots(): void {
+    if (!this.dotCanvas) this.buildDots();
+    if (!this.dotCanvas) return;
+    const ctx = this.ctx;
+    // Blit in device pixels (the cache is already dpr-scaled); grid visibility
+    // rides on globalAlpha so it stays tweakable without rebaking.
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalAlpha = this.params.gridVisibility;
+    ctx.drawImage(this.dotCanvas, 0, 0);
+    ctx.restore();
+  }
+
+  /** Canvas shadowBlur is the dominant per-frame cost on phones, and in the
+   * narrow mobile gutter its halo bleeds across the padding onto the content.
+   * Cap it hard there; desktop keeps the full neon glow. */
+  private glow(px: number): number {
+    return this.mobile ? Math.min(px, 6) : px;
   }
 
   private drawFrames(): void {
@@ -617,7 +656,7 @@ export default class GridEngine {
     ctx.lineJoin = "round";
     ctx.strokeStyle = this.pal.line;
     ctx.shadowColor = this.pal.accent;
-    ctx.shadowBlur = 10 * this.params.lineGlow;
+    ctx.shadowBlur = this.glow(10 * this.params.lineGlow);
     ctx.beginPath();
     ctx.moveTo(pts[0].x, pts[0].y);
     for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
@@ -630,7 +669,7 @@ export default class GridEngine {
       const heat = this.params.cometHeat;
       ctx.fillStyle = this.mix(this.pal.line, "#ffffff", heat * 0.7);
       ctx.shadowColor = this.pal.accent;
-      ctx.shadowBlur = 14 * this.params.lineGlow;
+      ctx.shadowBlur = this.glow(14 * this.params.lineGlow);
       ctx.beginPath();
       ctx.arc(h.x, h.y, 3 + heat * 1.5, 0, Math.PI * 2);
       ctx.fill();
