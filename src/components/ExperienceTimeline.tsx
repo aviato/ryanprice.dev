@@ -58,7 +58,10 @@ export default function ExperienceTimeline() {
             onClick={() => setSel(i)}
           >
             <span className="tl-dot" aria-hidden="true" />
-            <span className="tl-co">{j.company}</span>
+            <span className="tl-label">
+              <span className="tl-co">{j.company}</span>
+              {j.note && <span className="tl-note">{j.note}</span>}
+            </span>
             <span className="tl-when">{shortPeriod(j.dates)}</span>
           </button>
         ))}

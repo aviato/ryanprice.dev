@@ -16,6 +16,8 @@ export interface Job {
   title: string;
   dates: string;
   blurb: string;
+  /** Short qualifier shown in the timeline to disambiguate repeat employers. */
+  note?: string;
 }
 
 export interface Project {
@@ -92,6 +94,7 @@ export const JOBS: Job[] = [
     company: "Billups",
     title: "Sr. Engineer → Front-End Team Lead",
     dates: "Nov 2018 — Aug 2021",
+    note: "Team Lead",
     blurb:
       "Mentored the team, revamped CI/CD on AWS/Kubernetes/Drone, shipped with TypeScript, Material UI & AG Grid, plus Go API endpoints.",
   },
@@ -106,6 +109,7 @@ export const JOBS: Job[] = [
     company: "Billups",
     title: "Software Engineer I → II",
     dates: "Apr 2016 — Aug 2017",
+    note: "Engineer",
     blurb:
       "React/Redux features in a microservice architecture; built an internal React + Mapbox integration library.",
   },
