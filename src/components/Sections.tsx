@@ -36,7 +36,11 @@ export default function Sections({ setFrameEl, setSectionEl }: Props) {
       className={`section ${className}`}
       ref={(el) => setSectionEl(id, el)}
     >
-      <div className="frame" ref={(el) => setFrameEl(id, el)}>
+      <div
+        className="frame"
+        data-fw={meta(id).frameWidth}
+        ref={(el) => setFrameEl(id, el)}
+      >
         <div className="frame-content">
           <Eyebrow id={id} />
           {children}
