@@ -4,13 +4,13 @@ import {
   CONTACT_LINKS,
   type ContactIcon,
   HERO,
-  JOBS,
   PROJECTS,
   PROJECTS_HEADING,
   SECTIONS,
   SKILLS,
   SKILLS_HEADING,
 } from "../content";
+import ExperienceTimeline from "./ExperienceTimeline";
 
 interface Props {
   /** Register each section's <div class="frame"> for measuring + positioning. */
@@ -78,18 +78,7 @@ export default function Sections({ setFrameEl, setSectionEl }: Props) {
         </>
       ))}
 
-      {frame("experience", "xp", (
-        <div className="jobs">
-          {JOBS.map((job, i) => (
-            <div className="job" key={i}>
-              <div className="company">{job.company}</div>
-              <div className="dates">{job.dates}</div>
-              <div className="title">{job.title}</div>
-              <p className="blurb">{job.blurb}</p>
-            </div>
-          ))}
-        </div>
-      ))}
+      {frame("experience", "xp", <ExperienceTimeline />)}
 
       {frame("projects", "projects", (
         <>

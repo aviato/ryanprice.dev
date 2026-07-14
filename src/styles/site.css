@@ -210,51 +210,124 @@ a {
   margin-top: 1.1em;
 }
 
-/* --- experience ---------------------------------------------------------- */
+/* --- experience (interactive timeline) ----------------------------------- */
 
-.xp .jobs {
+.xp-timeline {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.85fr) 1.3fr;
+  gap: clamp(20px, 4vw, 56px);
+  align-items: start;
+}
+
+/* The timeline: a vertical tablist of jobs, newest → oldest, drawn as connected
+ * nodes on a hairline rail (echoing the canvas lines). */
+.tl-list {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
-.job {
+/* The rail: a vertical line threading the dots (dot center sits at 5.5px). */
+.tl-list::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: var(--hair);
+}
+.tl-node {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 4px clamp(16px, 3vw, 48px);
-  padding: clamp(16px, 2.4vh, 26px) 0;
-  border-top: 1px solid var(--hair);
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0 12px;
+  width: 100%;
+  padding: clamp(7px, 1.3vh, 11px) 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 0.2s ease;
 }
-.job:first-child {
-  border-top: 0;
+.tl-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid var(--dim);
+  background: var(--bg);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.job .company {
+.tl-co {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.15;
+}
+.tl-when {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.tl-node:hover .tl-co,
+.tl-node:focus-visible .tl-co {
+  color: var(--text);
+}
+.tl-node:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+.tl-node.active .tl-co {
+  color: var(--accent);
+  font-weight: 700;
+}
+.tl-node.active .tl-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px -1px var(--accent);
+}
+
+/* The detail panel. min-height reserves room for the tallest entry so switching
+ * jobs doesn't resize the frame (which the line engine measures). */
+.tl-detail {
+  min-height: 12em;
+}
+.tl-detail:focus-visible {
+  outline: none;
+}
+.tl-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(20px, 2vw, 28px);
+  font-size: clamp(20px, 2vw, 30px);
   color: var(--text);
-  grid-column: 1;
+  margin: 0 0 6px;
+  line-height: 1.1;
 }
-.job .dates {
+.tl-dates {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--dim);
-  grid-column: 2;
-  grid-row: 1;
-  text-align: right;
-  white-space: nowrap;
-  align-self: center;
+  margin: 0 0 clamp(12px, 2vh, 18px);
 }
-.job .title {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--accent);
-  grid-column: 1;
-  margin: 2px 0 8px;
-}
-.job .blurb {
-  grid-column: 1 / -1;
-  max-width: 70ch;
+.tl-blurb {
   margin: 0;
-  font-size: 15.5px;
+  max-width: 60ch;
+  font-size: clamp(15px, 1.15vw, 17px);
+}
+.tl-detail-in {
+  animation: tl-fade 0.28s ease;
+}
+@keyframes tl-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- projects ------------------------------------------------------------ */
@@ -627,6 +700,17 @@ a {
   .proj-grid {
     grid-template-columns: 1fr;
   }
+  /* Timeline stacks: job list on top, detail below (narrower column wraps the
+   * blurbs longer, so reserve a bit more height to keep the frame steady). */
+  .xp-timeline {
+    grid-template-columns: 1fr;
+    gap: clamp(18px, 4vh, 28px);
+  }
+  .tl-detail {
+    min-height: 15em;
+    padding-top: clamp(16px, 2.4vh, 22px);
+    border-top: 1px solid var(--hair);
+  }
   /* The left rail crowds the narrow content column — hide it on phones. */
   .rail {
     display: none;
@@ -643,6 +727,9 @@ a {
     transition: none;
   }
   .scroll-cta svg {
+    animation: none;
+  }
+  .tl-detail-in {
     animation: none;
   }
 }
