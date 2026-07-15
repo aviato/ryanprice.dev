@@ -44,11 +44,12 @@
 }
 
 html {
-  /* Proximity (not mandatory): tall sections render at full height and scroll
-   * freely — mandatory snap would yank you back to a tall section's top before
-   * you could read its bottom. Short sections still snap when you land near one. */
-  scroll-snap-type: y proximity;
-  scroll-behavior: smooth;
+  /* Scrolling is fully driven by JS (Portfolio.tsx): each wheel / swipe / key
+   * gesture advances exactly one section, which is then centered in the viewport
+   * and locked while it animates + cools down. CSS scroll-snap is intentionally
+   * absent — it would fight the programmatic scrollTo and reintroduce the
+   * "landed between two sections" state the lock exists to prevent. */
+  scroll-behavior: auto;
 }
 
 body {
@@ -79,7 +80,6 @@ main {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  scroll-snap-align: start;
   /* Vertical padding is the lines' routing band: a short frame centers within
    * it; a tall frame (taller than the viewport) fills the content box, so its
    * top/bottom sit this far inside the screen edge when scrolled to — leaving a
