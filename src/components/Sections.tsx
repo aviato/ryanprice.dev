@@ -3,6 +3,7 @@ import {
   CONTACT_HEADING,
   CONTACT_LINKS,
   type ContactIcon,
+  EXPERIENCE_HEADING,
   HERO,
   PROJECTS,
   PROJECTS_HEADING,
@@ -78,7 +79,12 @@ export default function Sections({ setFrameEl, setSectionEl }: Props) {
         </>
       ))}
 
-      {frame("experience", "xp", <ExperienceTimeline />)}
+      {frame("experience", "xp", (
+        <>
+          <h2 className="h-display">{EXPERIENCE_HEADING}</h2>
+          <ExperienceTimeline />
+        </>
+      ))}
 
       {frame("projects", "projects", (
         <>

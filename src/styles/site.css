@@ -133,7 +133,10 @@ main {
 
 /* --- shared type --------------------------------------------------------- */
 
-.eyebrow {
+/* Scoped to .frame-content so section-level paragraph rules (e.g. `.about p`)
+ * can't override the eyebrow — it's a <p>, so a bare descendant selector would
+ * otherwise win on specificity and resize it. */
+.frame-content .eyebrow {
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.22em;
@@ -211,6 +214,11 @@ a {
 }
 
 /* --- experience (interactive timeline) ----------------------------------- */
+
+.xp h2 {
+  font-size: clamp(30px, 4vw, 56px);
+  margin-bottom: clamp(20px, 3vh, 36px);
+}
 
 .xp-timeline {
   display: grid;

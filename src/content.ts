@@ -115,6 +115,8 @@ export const JOBS: Job[] = [
   },
 ];
 
+export const EXPERIENCE_HEADING = "A decade of shipping.";
+
 export const PROJECTS_HEADING = "Things I’ve built.";
 
 export const PROJECTS: Project[] = [
